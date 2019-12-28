@@ -1,10 +1,18 @@
-FROM tomcat:8-jre8
+# Base Image
+FROM openjdk:8
 
-RUN rm -rf /usr/local/tomcat/webapps/*
+# Create DIR
+RUN mkdir -p /usr/src/myapp
 
-COPY /Pipeline_challenge-/atmosphere/spring-boot-samples/spring-boot-sample-atmosphere/target/spring-boot-sample-atmosphere-1.4.0.BUILD-SNAPSHOT.jar /usr/local/tomcat/webapps
+# COPY APPLICTAION COde
+COPY /Pipeline_challenge-/atmosphere/spring-boot-samples/spring-boot-sample-atmosphere/target/spring-boot-sample-atmosphere-1.4.0.BUILD-SNAPSHOT.jar    /usr/src/myapp
 
+# Setup Working DIR
+WORKDIR /usr/src/myapp
+
+#EXPOSE
 EXPOSE 8080
-CMD ["catalina.sh", "run"]
 
+# Start the Bot Service
+CMD ["java", "-jar", "spring-boot-sample-atmosphere-1.4.0.BUILD-SNAPSHOT.jar"]
 
